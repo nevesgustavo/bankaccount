@@ -45,7 +45,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_SECRET }}
       - name: docker build
         run: |
-          docker build -t gustavon/bankaccount:1.0.0 .
+          docker build -t gustavon/bankaccount:1.0.0 ./
       - name: docker push
         run: |
           docker push gustavon/bankaccount:1.0.0
