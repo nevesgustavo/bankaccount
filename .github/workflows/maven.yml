@@ -45,12 +45,12 @@ jobs:
           rabbitmq user: 'guest'
           rabbitmq password: 'guest'
       - name: Build with Maven
+        run: mvn clean install
+      - name: Run Tests
         env:
           POSTGRES_HOST: postgres
           POSTGRES_PORT: 5432
           SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bankaccount
-        run: mvn clean install
-      - name: Run Tests
         run: mvn -B test
       - name: Build & push Docker image
         uses: mr-smithers-excellent/docker-build-push@v5
