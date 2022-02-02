@@ -45,6 +45,11 @@ jobs:
           rabbitmq user: 'guest'
           rabbitmq password: 'guest'
       - name: Build with Maven
+        env:
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: 5432
+          SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bankaccount
+
         run: mvn clean install
       - name: Run Tests
         env:
