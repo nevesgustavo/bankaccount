@@ -19,3 +19,48 @@ springdoc:
 info:
   app:
     title: Neves bank account
+
+
+spring:
+  session:
+    store-type: redis
+    redis:
+      host: localhost
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:5432/bankaccount
+    hikari:
+      maximumPoolSize: 5
+      connectionTimeout: 20000
+
+
+  rabbitmq:
+    request:
+      host: localhost
+      port: 5672
+      username: guest
+      password: guest
+      exchange:
+        producer: ex.producer.bankaccount
+      routing-key:
+        producer: rk.producer.bankaccount
+      dead-letter:
+        producer: dl.producer.bankaccount
+      parking-lot:
+        producer: pl.producer.bankaccount
+
+logging:
+  config: classpath:log4j2.yml
+  level:
+    ROOT: INFO

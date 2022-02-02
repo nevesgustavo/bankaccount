@@ -1,0 +1,17 @@
+Configuration:
+  appenders:
+    Console:
+      name: LogInJSON
+      target: SYSTEM_OUT
+      follow: true
+      JsonLayout:
+        complete: false
+        compact: true
+        eventEol: true
+        stacktraceAsString: true
+
+  Loggers:
+    Root:
+      level: info
+      AppenderRef:
+        - ref: LogInJSON
