@@ -32,7 +32,7 @@ public class TransactionRequestBody {
             name = "amount",
             type = "Float",
             title = "The amount",
-            example = "100.0",
+            example = "1.0",
             required = true)
     private BigDecimal amount;
 
