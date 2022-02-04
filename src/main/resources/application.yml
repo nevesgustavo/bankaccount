@@ -22,6 +22,8 @@ info:
 
 
 spring:
+  application:
+    name: Bank Account
   session:
     store-type: redis
     redis:
@@ -60,7 +62,37 @@ spring:
       parking-lot:
         producer: pl.producer.bankaccount
 
+
+
+
+management:
+  health:
+    redis:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    health:
+      group:
+        liveness:
+          include: livenessstate,db,rabbitmq
+      show-details: always
+      probes:
+        enabled: true
+
 logging:
   config: classpath:log4j2.yml
   level:
     ROOT: INFO
+
+
