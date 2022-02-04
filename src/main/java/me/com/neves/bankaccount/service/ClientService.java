@@ -29,6 +29,10 @@ public class ClientService {
         return clientRepository.findAll(pageable);
     }
 
+    public void delete(Client client){
+        clientRepository.delete(client);
+    }
+
     public Client findByDocumentNumberAndDocumentType(String documentNumber, String documentType) {
         return clientRepository.findByDocumentNumberAndDocumentType(documentNumber, documentType);
     }
