@@ -138,6 +138,12 @@ volumes:
 ### How to test
  - To see the swagger ui access the http:localhost:8081/ and http:localhost:8082/
  
+ - Create a transaction:
+ ![Solution](./extra/img/create_transaction.png?raw=true "Solution")
+ 
+ - Show balance and statement:
+  ![Solution](./extra/img/statement.png?raw=true "Solution")
+ 
 ### How to have logs
  - Run the docker-compose below, this will create elasticsearch, kibana, filebeat
  - To access logs just access http://localhost:5601/
