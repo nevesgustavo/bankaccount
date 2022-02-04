@@ -4,7 +4,7 @@ This is a project for tests purpose, basically it is a bank account that to mana
 
 ![Solution](./extra/img/bank.drawio.png?raw=true "Solution")
 
-###Used tecnologies
+### Used tecnologies
  * Java 11
  * Spring boot 2
  * Postgres
@@ -16,19 +16,19 @@ This is a project for tests purpose, basically it is a bank account that to mana
  * API Gateway Kong / Konga
  * Github actions
 
-###How does it work
+### How does it work
  - When a transaction occurs:
    - Validates if the balance is enough
    - Lock control across multiple instances
    - Sends a message to queue, this queue will be consumed in bank statement micro service.
    
-###CI/CD
+### CI/CD
  - After one commit in the main branch:
   - Run all the images used in the project (postgres, mongo, redis)
   - Run maven tests
   - Create and publish image to docker hub registry
    
-###How to run
+### How to run
  - Run the docker-compose below, this will:
   - Postgres, mongo, redis, rabbitmq, bankaccount, bankstatement
   
@@ -135,10 +135,10 @@ volumes:
 ```
 
 
-###How to test
+### How to test
  - To see the swagger ui access the http:localhost:8081/ and http:localhost:8082/
  
-###How to have logs
+### How to have logs
  - Run the docker-compose below, this will create elasticsearch, kibana, filebeat
  - To access logs just access http://localhost:5601/
  
@@ -173,7 +173,7 @@ volumes:
   elasticsearch_data:
 ``` 
 
-###How to have metrics
+### How to have metrics
  - Run the docker-compose below, this will run prometheus and grafana
  - How to configure grafana
  - Access http://localhost:3000
@@ -200,7 +200,7 @@ services:
       - "3000:3000"
 ```
 
-###How to have kong
+### How to have kong
  - Run the docker-compose below, this will run cassandra, kong and konga
  
 ```yaml
