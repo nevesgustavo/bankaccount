@@ -38,6 +38,7 @@ public class TransactionService {
 
         tranctionAmountImpl.updateAccountAmount(account, transaction.getAmount());
         transaction.setOwnerAccount(account);
+        accountService.save(account);
 
         Transaction resultTransaction = transactionRepository.save(transaction);
 
