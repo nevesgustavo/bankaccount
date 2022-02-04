@@ -1,0 +1,99 @@
+version: "3.7"
+services:
+  postgres:
+    container_name: pg_final
+    image: postgres:9.6.24
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=bankaccount
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo:5.0.2
+    container_name: mongodb_account_final
+    restart: always
+    volumes:
+      - mongo_data_container:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_DATABASE: account
+    networks:
+      - app-network
+
+  redis:
+    container_name: redis_final
+    image: redis:6.2.6-bullseye
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+  rabbitmq_container:    
+    hostname: rabbitmq_container
+    image: rabbitmq:management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - app-network
+
+  bankaccount:
+    image: gustavon/bankaccount:latest
+    container_name: bankaccount_final
+    ports:
+      - 8081:8081
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - redis
+      - rabbitmq_container
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/bankaccount
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+      - SPRING_RABBITMQ_HOST=rabbitmq_container
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+      - SPRING_SESSION_REDIS_HOST=redis
+      - SPRING_REDIS_HOST=redis
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - app-network
+
+  bankstatement:
+    image: gustavon/bankstatement:latest
+    container_name: bankstatement_final
+    ports:
+      - 8082:8082
+    restart: unless-stopped
+    depends_on:
+      - mongo
+      - rabbitmq_container
+    environment:      
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017
+      - SPRING_RABBITMQ_HOST=rabbitmq_container
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  pgdata:
+  mongo_data_container:

@@ -1,0 +1,13 @@
+global:
+  scrape_interval:     15s # By default, scrape targets every 15 seconds.
+scrape_configs:
+  # https://prometheus.io/docs/prometheus/latest/getting_started/
+
+  - job_name: 'myTests-actuator'
+
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 5s
+    metrics_path: "/actuator/prometheus"
+
+    static_configs:
+      - targets: ['host.docker.internal:8080']
