@@ -29,6 +29,8 @@ This is a project for tests purpose, basically it is a bank account that to mana
   - Create and publish image to docker hub registry
    
 ### How to run
+#### The compose files are in https://github.com/nevesgustavo/bankaccount/tree/main/extra
+
  - Run the docker-compose below, this will:
   - Postgres, mongo, redis, rabbitmq, bankaccount, bankstatement
   
